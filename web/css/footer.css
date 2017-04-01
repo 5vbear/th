@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+#footer_container {
+	clear: both;
+	height: 30px;
+	border-top: 1px solid #CCC;
+	margin-top: 30px;
+}
+
+#footer_contents {
+	text-align: left;
+	margin: 0 auto;
+	width: 755px;
+	position: relative;
+}
+
+#footer_contents ul {
+	width: 350px;
+	height: 20px;
+	padding: 0px;
+	float: left;
+	margin-top: 7px;
+	list-style-type: none;
+}
+
+#footer_contents ul a {
+	display: block;
+	float: left;
+	margin-right: 15px;
+}
+
+#footer_contents ul li {
+	display: inline;
+}
+
+#footer_right {
+	float: right;
+	width: 305px;
+	height: 20px;
+	padding-top: 10px;
+}

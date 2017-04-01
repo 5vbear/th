@@ -1,0 +1,65 @@
+/* CSS Document */
+.rightBtn{
+	background-color:#CAE8EA;
+	color:#4f6b72;
+	float:right;
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	border-width: 1px;
+	margin-right: 3px;
+}
+
+.leftBtn{
+	background-color:#CAE8EA;
+	color:#4f6b72;
+	float:left;
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	border-width: 1px;
+	margin-left: 3px;
+}
+
+.tableBtn{
+	background-color:#CAE8EA;
+	color:#4f6b72;
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	border-width: 1px;
+	margin-left: 3px;
+}
+	
+.machineTd{
+	text-align: center;
+}
+
+.tableLink:link{
+	color: #4f6b72;
+	font-weight: bold;
+	text-decoration: underline;
+}
+tableLink:visited {
+	color: #4f6b72;
+	font-weight: bold;
+	text-decoration: underline;
+}
+tableLink:hover {
+	color: #4f6b72;
+	font-weight: bold;
+	text-decoration: underline;
+}
+tableLink:active {
+	color: #4f6b72;
+	font-weight: bold;
+	text-decoration: underline;
+}
+.mtitle {
+	width: 100%;
+	color: #4f6b72;
+	font-size: 10pt;
+	background-color: #f0f6e4;
+	font-weight: bold;
+}
+

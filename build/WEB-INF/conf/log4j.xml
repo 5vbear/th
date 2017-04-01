@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+	    <param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p][%t] [%l] %m%n"/>
+		</layout>
+	</appender>
+
+	<appender name="thccb.log" class="org.apache.log4j.DailyRollingFileAppender">
+	    <param name="Encoding" value="UTF-8" />
+		<param name="Append" value="true"/>
+		<param name="File" value="${jboss.server.log.dir}/thccb.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p][%t]  [%l]  %m%n"/>
+		</layout>
+	</appender>
+		<appender name="THInteractive.log" class="org.apache.log4j.DailyRollingFileAppender">
+	    <param name="Encoding" value="UTF-8" />
+		<param name="Append" value="true"/>
+		<param name="File" value="${jboss.server.log.dir}/THInteractive.log"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p][%t]  [%l]  %m%n"/>
+		</layout>
+	</appender>
+
+	<logger name="net.sf.ehcache">
+		<level value="ERROR"/>
+		<appender-ref ref="thccb.log"/>
+	</logger>
+
+	<logger name="org.apache">
+		<level value="ERROR"/>
+		<appender-ref ref="thccb.log"/>
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="ERROR"/>
+		<appender-ref ref="thccb.log"/>
+	</logger>
+
+	<logger name="th">
+		<level value="DEBUG"/>
+		<appender-ref ref="thccb.log"/>
+	</logger>
+	<logger name="interactiveAPI">
+		<level value="DEBUG"/>
+		<appender-ref ref="THInteractive.log"/>
+	</logger>
+	<root>
+		<level value="DEBUG"/>
+		<appender-ref ref="CONSOLE"/>
+	</root>
+
+</log4j:configuration>

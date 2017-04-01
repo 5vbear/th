@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+
+<!-- $Id: build.xml,v 1.28 2010/12/15 06:20:04 kameyama Exp $ -->
+
+<project name="th" default="local" basedir=".">
+
+	<!-- =====================  ターゲット一覧 ================================
+  1. all        [depend:clean]
+  2. clean      [depend:nothing]
+  3. compile    [depend:prepare]
+  4. release    [depend:compile]
+  5. test       [depend:compile]
+  6. local      [depend:compile]
+  7. deploy     [depend:local]
+  8. dist       [depend:deploy,javadoc]
+  9. javadoc    [depend:compile]
+ 10. java2html  [depend:compile]
+ 11. prepare    [depend:clean]
+-->
+	<!-- ===================== プロパティの定義 =========================== -->
+	<!-- ==================== ファイルとディレクトリ名 ========================
+  これらのプロパティは、一般的にビルドプロセスが，その出力を保存する場
+  所に関与するファイルとディレクトリ名(またはパス)を定義します。
+
+  app.name          ファイル名とディレクトリを作成するために使用され
+                    る、このアプリケーションのベース名。
+  app.version       このアプリケーションのバージョン識別子。
+  build.home        "prepare"と"compile"ターゲットが出力を生成するディ
+                    レクトリ。"build"のデフォルトです。
+  catalina.home     あなたがTomcat 4のバイナリ配布をインストールし
+                    たディレクトリ。これは"deploy"ターゲットで使用されます。
+  deploy.home       配備階層が作成され、ビルドディレクトリがコピー
+                    されるディレクトリの名前。
+  dist.home         配布ファイルを作成するベースディレクトリ名。
+                    デフォルトは"dist"です．
+-->
+	<!-- プロパティ定義前にbuild.propertiesの文字コードを変換する -->
+	<native2ascii encoding="UTF-8" src="." dest="." ext=".ascii.properties">
+		<include name="build.properties" />
+	</native2ascii>
+	<property name="build.properties" value="build.ascii.properties" />
+	<property file="${build.properties}" />
+	<property name="app.name" value="thmanagement" />
+	<property name="build.home" value="build" />
+	<property name="deploy.home" value="${deploy.home}" />
+	<property name="dist.home" value="dist" />
+	<property name="war.home" value="war" />
+	<property name="lib.home" value="./web/WEB-INF/lib" />
+	<property name="report.home" value="c:/thccb/th_export_file" />
+	<property name="release.home" value="release" />
+	<property name="local.home" value="local" />
+	<property name="conf.file.encoding" value="EUC_JP" />
+	<property name="target.version" value="1.6" />
+
+	<!--  ==================== コンパイル制御オプション ==================== -->
+	<property name="compile.debug" value="true" />
+	<property name="compile.deprecation" value="true" />
+	<property name="compile.optimize" value="true" />
+	<property name="compile.encoding" value="UTF-8" />
+
+	<!-- ==================== 外部の依存ファイル ===========================
+  あなたのアプリケーションが依存している外部のJARファイルの場所を定義
+  するために、プロパティの値を使用します。一般的には、これらの値は次の
+  2つの目的で使用されます。
+
+  1. javacコンパイラに渡すクラスパスへの指定。
+  2. "deploy"ターゲット実行中に"/WEB-INF/lib"ディレクトリにコピー。
+
+  Tomcat 4がWebアプリケーションに公開しているすべてのJavaクラスは自動
+  的に取り込まれるので、これらの依存ファイルを明示的にリストする必要は
+  ありません。あなたの"/WEB-INF/lib"ディレクトリの中に取り込むつもりの
+  JAR ファイルに対する外部からの依存性だけを心配してください。
+-->
+	<!--
+  <property name="struts.jar" value="lib/struts.jar"/>
+-->
+	<!-- ==================== コンパイルのクラスパス ===========================
+  クラスパス環境変数に依存するより、Antはそれぞれのコンパイルに必要な
+  クラスパスを動的に組み立てることを簡単にする機能を取り込みました。次
+  の例は，servlet.jarファイルをコンパイルクラスパスを組み立てます。次
+  の例では、TomcatがWebアプリケーションに対して自動的に利用可能にして
+  いる他のコンポーネントに加えて、明示的に追加したファイルと同様に、
+  servlet.jarファイルをコンパイルクラスパスに取り込むように組み立てま
+  す．
+-->
+	<path id="compile.classpath">
+		<fileset dir="${lib.home}">
+			<include name="*.jar" />
+		</fileset>
+
+		<fileset dir="${jboss.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+
+		<!-- 	<fileset dir="${commonlib.home}">
+			<include name="*.jar"/>
+		</fileset>-->
+
+	</path>
+
+	<!-- ==================== Allターゲット ======================================
+  "all"ターゲットは，"clean"ターゲットに続いて"compile"ターゲットを実
+  行するためのショートカットで，完全に再コンパイルします．
+-->
+	<target name="all" depends="release" description="Clean build and dist, then compile" />
+
+	<!-- ==================== Cleanターゲット ====================================
+  "clean"ターゲットは、アプリケーションが最初からビルドできることを保
+  証するために、以前の"build"と"dist"ディレクトリを削除します。
+-->
+	<target name="clean" description="Delete old build and dist directories">
+		<delete dir="${build.home}" />
+		<delete dir="${dist.home}" />
+		<delete dir="${war.home}" />
+		<delete dir="${release.home}" />
+		<delete dir="${test.home}" />
+		<delete>
+			<fileset dir="." includes="*.ear" />
+		</delete>
+		<delete dir="${report.home}" />
+	</target>
+
+	<!-- ==================== Compileターゲット ==================================
+  "compile"ターゲットは，(あなたの"src"ディレクトリの)ソースファイルを，
+  ビルドディレクトリの中の適切な場所のオブジェクトファイルに変換します．
+  この例では，"/WEB-INF/classes"の下の解凍されたディレクトリ階層の中に
+  あなたのクラスが含まれていると仮定しています．
+-->
+	<target name="compile" depends="prepare" description="Compile Java sources">
+
+		<echo message="build  version : jdk ${ant.java.version} / ${java.home}" />
+		<echo message="target version : jdk ${target.version}" />
+		<fail message="対象とする実行環境が異なります。">
+			<condition>
+				<not>
+					<contains string="${ant.java.version}" substring="${target.version}" />
+				</not>
+			</condition>
+		</fail>
+
+		<!-- 必要に応じてJavaのクラスをコンパイルします -->
+		<mkdir dir="${build.home}/WEB-INF/classes" />
+		<javac srcdir="src" destdir="${build.home}/WEB-INF/classes" encoding="${compile.encoding}" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}" target="${target.version}">
+			<classpath refid="compile.classpath" />
+		</javac>
+
+		<!-- コンパイル時にlibのコピーをしてしまう -->
+		<mkdir dir="${build.home}/WEB-INF/lib" />
+		<copy todir="${build.home}/WEB-INF/lib">
+			<fileset dir="${lib.home}" excludes="jsse.jar" />
+		</copy>
+
+	</target>
+
+	<target name="copy_conf_file">
+		<echo message="Copy project conf files" />
+
+		<mkdir dir="${build.home}/WEB-INF/conf" />
+		<copy file="web/WEB-INF/conf/log4j.xml" tofile="${build.home}/WEB-INF/conf/log4j.xml" overwrite="true" />
+
+		<mkdir dir="${report.home}/template_file" />
+		<copy todir="${report.home}/template_file">
+			<fileset dir="web/template" includes="*.xls" />
+		</copy>
+		<mkdir dir="${report.home}/temp_file" />
+
+	</target>
+	<!-- ==================== RELEASEターゲット =============================== -->
+	<target name="release" depends="compile" description="WAR-EAR Archive for Release">
+
+		<property name="target.name" value="release" />
+		<antcall target="copy_conf_file" />
+		<!-- src配下のpropertyの可変値を置換してコピー -->
+		<copy todir="${build.home}/WEB-INF/classes" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="src" includes="**/*.properties" />
+			<filterset>
+				<filter token="APP_ROOT" value="${release.root}" />
+				<filter token="APP_NAME" value="${app.name}" />
+			</filterset>
+		</copy>
+
+		<!-- web.xmlファイルの可変値を置換してコピー -->
+		<copy todir="${build.home}/WEB-INF/" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF" includes="web.xml" />
+			<filterset>
+				<filter token="APP_ROOT" value="${release.root}" />
+				<filter token="APP_DIR" value="${release.dir}" />
+				<filter token="APP_NAME" value="${app.name}" />
+				<filter token="APP_CONF" value="${release.conf}" />
+			</filterset>
+		</copy>
+		<copy todir="${release.root}/${app.name}/${release.dir}/${release.conf}" overwrite="true" encoding="${conf.file.encoding}">
+				<fileset dir="web/WEB-INF/conf" includes="ftp_users.properties" />
+				<filterset>
+				<filter token="FTP_PATH" value="${release.FTP_PATH}" />
+				</filterset>
+		</copy>
+		<!-- WEB-INF配下のpropertyファイルの可変値を置換してコピー -->
+		<mkdir dir="${release.home}/${app.name}/${release.conf}" />
+		<copy todir="${release.home}/${app.name}/${release.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF" includes="Define.properties" />
+			<filterset>
+
+				<filter token="USR_DB_SOURCE_NAME" value="${release.user.db.source.name}" />
+				<filter token="BACKUP_DIRECTORY" value="${release.backup_directory}" />
+				<filter token="BACKUP_DBNAME" value="${release.backup.dbname}" />
+				<filter token="BACKUP_CONFIG" value="${release.backup.config}" />
+				<filter token="BACKUP_DUMP" value="${release.backup.dump}" />
+				<filter token="BACKUP_DUMP_LINUX" value="${release.backup.dump.linux}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_SHORTCUT" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_SHORTCUT}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_COMMAND" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_COMMAND}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_CHANNEL" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_CHANNEL}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_PLAYBILL" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_PLAYBILL}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_UPGRADE" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_UPGRADE}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_CONFIGURATION" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_CONFIGURATION}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_WHITELIST" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_WHITELIST}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_DOCUMENTLIST" value="${release.FTP_DOWNLOAD_TMP_FILE_PATH_DOCUMENTLIST}" />
+				<filter token="TH_UPLOAD_FILE_PATH_MEDIA" value="${release.TH_UPLOAD_FILE_PATH_MEDIA}" />
+				<filter token="FTP_TMP_FILE_PATH_MEDIA" value="${release.FTP_TMP_FILE_PATH_MEDIA}" />
+				<filter token="FTP_TMP_FILE_PATH_UPGRADEPACKAGE" value="${release.FTP_TMP_FILE_PATH_UPGRADEPACKAGE}" />
+				<filter token="EXPORT_FILE_PATH_TEMPLATE" value="${release.EXPORT_FILE_PATH_TEMPLATE}" />
+				<filter token="EXPORT_FILE_PATH_TEMP" value="${release.EXPORT_FILE_PATH_TEMP}" />
+				<filter token="TH_FFMPEG_BAT_PATH" value="${release.TH_FFMPEG_BAT_PATH}" />
+				<filter token="AAPT_COMMAND_PATH" value="${release.AAPT_COMMAND_PATH}" />
+				<filter token="HOST_SERVER" value="${release.HOST_SERVER}" />
+				<filter token="FTP_SERVER_HOST" value="${release.FTP_SERVER_HOST}" />
+				<filter token="BATCH_SERVER_NAME" value="${release.BATCH_SERVER_NAME}" />
+				<filter token="BATCH_SERVER_PORT" value="${release.BATCH_SERVER_PORT}" />
+				<filter token="FTP_START" value="${release.FTP_START}" />
+				<filter token="FTP_PATH" value="${release.FTP_PATH}" />
+				<filter token="FTP_CLOSE" value="${release.FTP_CLOSE}" />
+				<filter token="FTP_USERS_FILE_PATH" value="${release.FTP_USERS_FILE_PATH}" />
+			</filterset>
+		</copy>
+		<copy todir="${release.root}/${app.name}/${release.dir}/${release.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF/conf" includes="log4j.xml" />
+			<!--<fileset dir="web/WEB-INF/conf" includes="ftp_users.properties" /> -->
+			<filterset>
+				<filter token="LOGDIR" value="${release.logdir}" />
+			</filterset>
+		</copy>
+		<mkdir dir="${release.root}/${app.name}/${release.dir}/log" />
+
+		<!-- 最初に作成したbuild.ascii.propertiesを削除 -->
+		<delete>
+			<fileset dir="." includes="build.ascii.properties" />
+		</delete>
+
+		<!-- ear ファイルを生成 -->
+		<mkdir dir="${war.home}/META-INF" />
+		<copy todir="${war.home}/META-INF">
+			<fileset dir="." includes="application.xml" />
+		</copy>
+		<jar basedir="${build.home}" jarfile="${war.home}/${app.name}.war" />
+		<jar basedir="${war.home}" jarfile="${app.name}.ear" />
+
+		<!-- ビルドディレクトリの内容をコピーします -->
+		<copy file="${app.name}.ear" todir="${deploy.home}" />
+
+	</target>
+
+	<!-- ==================== LOCALターゲット =============================== -->
+	<target name="local" depends="compile" description="WAR-EAR Archive for Local">
+
+		<property name="target.name" value="local" />
+		<antcall target="copy_conf_file" />
+		<!-- src配下のpropertyの可変値を置換してをコピー -->
+		<copy todir="${build.home}/WEB-INF/classes" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="src" includes="**/*.properties" />
+			<filterset>
+				<filter token="APP_ROOT" value="${local.root}" />
+				<filter token="APP_NAME" value="${app.name}" />
+			</filterset>
+		</copy>
+
+		<!-- web.xmlファイルの可変値を置換してコピー -->
+		<copy todir="${build.home}/WEB-INF/" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF" includes="web.xml" />
+			<filterset>
+				<filter token="APP_ROOT" value="${local.root}" />
+				<filter token="APP_DIR" value="${local.dir}" />
+				<filter token="APP_NAME" value="${app.name}" />
+				<filter token="APP_CONF" value="${local.conf}" />
+			</filterset>
+		</copy>
+		<copy todir="${local.root}/${app.name}/${local.dir}/${local.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF/conf" includes="ftp_users.properties" />
+			<filterset>
+				<filter token="FTP_ROOT_PATH" value="${local.FTP_ROOT_PATH}" />
+			</filterset>
+		</copy>
+		<!-- WEB-INF配下のpropertyファイルの可変値を置換してコピー -->
+		<mkdir dir="${local.root}/${app.name}/${local.dir}/${local.conf}" />
+		<copy todir="${local.root}/${app.name}/${local.dir}/${local.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF" includes="Define.properties" />
+			<filterset>
+
+				<filter token="USR_DB_SOURCE_NAME" value="${local.user.db.source.name}" />
+				<filter token="BACKUP_DIRECTORY" value="${local.backup_directory}" />
+				<filter token="BACKUP_DBNAME" value="${local.backup.dbname}" />
+				<filter token="BACKUP_CONFIG" value="${local.backup.config}" />
+				<filter token="BACKUP_DUMP" value="${local.backup.dump}" />
+				<filter token="BACKUP_DUMP_LINUX" value="${local.backup.dump.linux}" />
+
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_SHORTCUT" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_SHORTCUT}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_COMMAND" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_COMMAND}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_CHANNEL" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_CHANNEL}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_PLAYBILL" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_PLAYBILL}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_UPGRADE" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_UPGRADE}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_CONFIGURATION" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_CONFIGURATION}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_WHITELIST" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_WHITELIST}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_DOCUMENTLIST" value="${local.FTP_DOWNLOAD_TMP_FILE_PATH_DOCUMENTLIST}" />
+				<filter token="TH_UPLOAD_FILE_PATH_MEDIA" value="${local.TH_UPLOAD_FILE_PATH_MEDIA}" />
+				<filter token="FTP_TMP_FILE_PATH_MEDIA" value="${local.FTP_TMP_FILE_PATH_MEDIA}" />
+				<filter token="FTP_TMP_FILE_PATH_UPGRADEPACKAGE" value="${local.FTP_TMP_FILE_PATH_UPGRADEPACKAGE}" />
+				<filter token="EXPORT_FILE_PATH_TEMPLATE" value="${local.EXPORT_FILE_PATH_TEMPLATE}" />
+				<filter token="EXPORT_FILE_PATH_TEMP" value="${local.EXPORT_FILE_PATH_TEMP}" />
+				<filter token="TH_FFMPEG_BAT_PATH" value="${local.TH_FFMPEG_BAT_PATH}" />
+				<filter token="AAPT_COMMAND_PATH" value="${local.AAPT_COMMAND_PATH}" />
+				<filter token="HOST_SERVER" value="${local.HOST_SERVER}" />
+				<filter token="FTP_SERVER_HOST" value="${local.FTP_SERVER_HOST}" />
+				<filter token="BATCH_SERVER_NAME" value="${local.BATCH_SERVER_NAME}" />
+				<filter token="BATCH_SERVER_PORT" value="${local.BATCH_SERVER_PORT}" />
+				<filter token="FTP_START" value="${local.FTP_START}" />
+				<filter token="FTP_PATH" value="${local.FTP_PATH}" />
+				<filter token="FTP_CLOSE" value="${local.FTP_CLOSE}" />
+				<filter token="FTP_USERS_FILE_PATH" value="${local.FTP_USERS_FILE_PATH}" />
+			</filterset>
+		</copy>
+		<copy todir="${local.root}/${app.name}/${local.dir}/${local.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF/conf" includes="log4j.xml" />
+			<!-- <fileset dir="web/WEB-INF/conf" includes="ftp_users.properties" /> -->
+			<filterset>
+				<filter token="LOGDIR" value="${local.logdir}" />
+			</filterset>
+		</copy>
+		<mkdir dir="${local.root}/${app.name}/${local.dir}/log" />
+		<!-- 最初に作成したbuild.ascii.propertiesを削除 -->
+		<delete>
+			<fileset dir="." includes="build.ascii.properties" />
+		</delete>
+
+		<!-- ear ファイルを生成 -->
+		<mkdir dir="${war.home}/META-INF" />
+		<copy todir="${war.home}/META-INF">
+			<fileset dir="." includes="application.xml" />
+		</copy>
+		<jar basedir="${build.home}" jarfile="${war.home}/${app.name}.war" />
+		<jar basedir="${war.home}" jarfile="${app.name}.ear" />
+
+		<!-- ビルドディレクトリの内容をコピーします -->
+		<copy file="${app.name}.ear" todir="${deploy.home}" />
+	</target>
+
+
+
+	<target name="prepare" depends="clean">
+		<!-- ビルドディレクトリを作成し，静的な内容をコピーします -->
+		<mkdir dir="${build.home}" />
+		<copy todir="${build.home}">
+			<fileset dir="web" excludes="**/*.txt,**/*.properties,**/*.tpl" />
+		</copy>
+	</target>
+
+
+	<!-- ====================  沈阳 linux =============================== -->
+	<target name="sylinux" depends="compile" description="WAR-EAR Archive for Release">
+
+		<property name="target.name" value="sylinux" />
+		<antcall target="copy_conf_file" />
+		<!-- src配下のpropertyの可変値を置換してコピー -->
+		<copy todir="${build.home}/WEB-INF/classes" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="src" includes="**/*.properties" />
+			<filterset>
+				<filter token="APP_ROOT" value="${sylinux.root}" />
+				<filter token="APP_NAME" value="${app.name}" />
+			</filterset>
+		</copy>
+
+		<!-- web.xmlファイルの可変値を置換してコピー -->
+		<copy todir="${build.home}/WEB-INF/" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF" includes="web.xml" />
+			<filterset>
+				<filter token="APP_ROOT" value="${sylinux.root}" />
+				<filter token="APP_DIR" value="${sylinux.dir}" />
+				<filter token="APP_NAME" value="${app.name}" />
+				<filter token="APP_CONF" value="${sylinux.conf}" />
+			</filterset>
+		</copy>
+		<copy todir="${sylinux.root}/${app.name}/${sylinux.dir}/${sylinux.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF/conf" includes="ftp_users.properties" />
+			<filterset>
+			<filter token="FTP_PATH" value="${sylinux.FTP_PATH}" />
+			</filterset>
+		</copy>
+
+		<!-- WEB-INF配下のpropertyファイルの可変値を置換してコピー -->
+		<mkdir dir="${release.home}/${app.name}/${release.conf}" />
+		<copy todir="${release.home}/${app.name}/${release.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF" includes="Define.properties" />
+			<filterset>
+
+				<filter token="USR_DB_SOURCE_NAME" value="${sylinux.user.db.source.name}" />
+				<filter token="BACKUP_DIRECTORY" value="${sylinux.backup_directory}" />
+				<filter token="BACKUP_DBNAME" value="${sylinux.backup.dbname}" />
+				<filter token="BACKUP_CONFIG" value="${sylinux.backup.config}" />
+				<filter token="BACKUP_DUMP" value="${sylinux.backup.dump}" />
+				<filter token="BACKUP_DUMP_LINUX" value="${sylinux.backup.dump.linux}" />
+
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_SHORTCUT" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_SHORTCUT}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_COMMAND" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_COMMAND}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_CHANNEL" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_CHANNEL}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_PLAYBILL" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_PLAYBILL}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_UPGRADE" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_UPGRADE}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_CONFIGURATION" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_CONFIGURATION}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_WHITELIST" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_WHITELIST}" />
+				<filter token="FTP_DOWNLOAD_TMP_FILE_PATH_DOCUMENTLIST" value="${sylinux.FTP_DOWNLOAD_TMP_FILE_PATH_DOCUMENTLIST}" />
+				<filter token="TH_UPLOAD_FILE_PATH_MEDIA" value="${sylinux.TH_UPLOAD_FILE_PATH_MEDIA}" />
+				<filter token="FTP_TMP_FILE_PATH_MEDIA" value="${sylinux.FTP_TMP_FILE_PATH_MEDIA}" />
+				<filter token="FTP_TMP_FILE_PATH_UPGRADEPACKAGE" value="${sylinux.FTP_TMP_FILE_PATH_UPGRADEPACKAGE}" />
+				<filter token="EXPORT_FILE_PATH_TEMPLATE" value="${sylinux.EXPORT_FILE_PATH_TEMPLATE}" />
+				<filter token="EXPORT_FILE_PATH_TEMP" value="${sylinux.EXPORT_FILE_PATH_TEMP}" />
+				<filter token="TH_FFMPEG_BAT_PATH" value="${sylinux.TH_FFMPEG_BAT_PATH}" />
+				<filter token="AAPT_COMMAND_PATH" value="${sylinux.AAPT_COMMAND_PATH}" />
+				<filter token="BACKUP_DIRECTORY" value="${sylinux.backup_directory}" />
+				<filter token="HOST_SERVER" value="${sylinux.HOST_SERVER}" />
+				<filter token="FTP_SERVER_HOST" value="${sylinux.FTP_SERVER_HOST}" />
+				<filter token="BATCH_SERVER_NAME" value="${sylinux.BATCH_SERVER_NAME}" />
+				<filter token="BATCH_SERVER_PORT" value="${sylinux.BATCH_SERVER_PORT}" />
+				<filter token="FTP_START" value="${sylinux.FTP_START}" />
+				<filter token="FTP_PATH" value="${sylinux.FTP_PATH}" />
+				<filter token="FTP_CLOSE" value="${sylinux.FTP_CLOSE}" />
+				<filter token="FTP_USERS_FILE_PATH" value="${sylinux.FTP_USERS_FILE_PATH}" />
+			</filterset>
+		</copy>
+		<copy todir="${sylinux.root}/${app.name}/${sylinux.dir}/${sylinux.conf}" overwrite="true" encoding="${conf.file.encoding}">
+			<fileset dir="web/WEB-INF/conf" includes="log4j.xml" />
+			<!-- <fileset dir="web/WEB-INF/conf" includes="ftp_users.properties" /> -->
+			<filterset>
+				<filter token="LOGDIR" value="${sylinux.logdir}" />
+			</filterset>
+		</copy>
+		<mkdir dir="${sylinux.root}/${app.name}/${sylinux.dir}/log" />
+
+		<!-- 最初に作成したbuild.ascii.propertiesを削除 -->
+		<delete>
+			<fileset dir="." includes="build.ascii.properties" />
+		</delete>
+
+		<!-- ear ファイルを生成 -->
+		<mkdir dir="${war.home}/META-INF" />
+		<copy todir="${war.home}/META-INF">
+			<fileset dir="." includes="application.xml" />
+		</copy>
+		<jar basedir="${build.home}" jarfile="${war.home}/${app.name}.war" />
+		<jar basedir="${war.home}" jarfile="${app.name}.ear" />
+
+		<!-- ビルドディレクトリの内容をコピーします -->
+		<copy file="${app.name}.ear" todir="${deploy.home}" />
+
+	</target>
+
+
+</project>

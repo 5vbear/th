@@ -1,0 +1,19 @@
+
+A:link {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #3333ff; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+
+
+.L1 A.active:link {
+	BACKGROUND: url(../image/img/menu1_bg.png) 0px -24px
+}
+

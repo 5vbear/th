@@ -1,0 +1,624 @@
+@charset "UTF-8";
+
+.td_gg {
+	background-image: url(../image/img/monitor_advertising_bg.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_gg_andriod_pad {
+	background-image: url(../image/img/monitor_advertising_bg_andriod_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_gg_andriod_phone {
+	background-image: url(../image/img/monitor_advertising_bg_andriod_phone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_gg_ipad {
+	background-image: url(../image/img/monitor_advertising_bg_ipad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_gg_iphone {
+	background-image: url(../image/img/monitor_advertising_bg_iphone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_gg_win_pad {
+	background-image: url(../image/img/monitor_advertising_bg_win_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_xlzd {
+	background-image: url(../image/img/monitor_break_bg.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_xlzd_andriod_pad {
+	background-image: url(../image/img/monitor_break_bg_andriod_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_xlzd_andriod_phone {
+	background-image: url(../image/img/monitor_break_bg_andriod_phone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_xlzd_ipad {
+	background-image: url(../image/img/monitor_break_bg_ipad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_xlzd_iphone {
+	background-image: url(../image/img/monitor_break_bg_iphone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_xlzd_win_pad {
+	background-image: url(../image/img/monitor_break_bg_win_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_fwz {
+	background-image: url(../image/img/monitor_service_bg.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_fwz_andriod_pad {
+	background-image: url(../image/img/monitor_service_bg_andriod_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_fwz_andriod_phone {
+	background-image: url(../image/img/monitor_service_bg_andriod_phone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_fwz_ipad {
+	background-image: url(../image/img/monitor_service_bg_ipad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_fwz_iphone {
+	background-image: url(../image/img/monitor_service_bg_iphone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_fwz_win_pad {
+	background-image: url(../image/img/monitor_service_bg_win_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_bt {
+	background-image: url(../image/img/monitor_stop_bg.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_bt_andriod_pad {
+	background-image: url(../image/img/monitor_stop_bg_andriod_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_bt_andriod_phone {
+	background-image: url(../image/img/monitor_stop_bg_andriod_phone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_bt_ipad {
+	background-image: url(../image/img/monitor_stop_bg_ipad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_bt_iphone {
+	background-image: url(../image/img/monitor_stop_bg_iphone.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_bt_win_pad {
+	background-image: url(../image/img/monitor_stop_bg_win_pad.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	color: #fff; repeat-x;
+	vertical-align: text-bottom;
+	word-break: break-all;
+}
+
+.td_mobile_online {
+	background-image: url(../image/img/monitor_service_bg.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	vertical-align:text-top;
+	color: #fff; repeat-x;
+	word-break: break-all;
+}
+
+.td_mobile_offline {
+	background-image: url(../image/img/monitor_break_bg.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	vertical-align:text-top;
+	color: #fff; repeat-x;
+	word-break: break-all;
+}
+
+.rb_mobile_online {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 2px;
+	border-top: #fff 1px solid;
+	padding-left: 2px;
+	font-size: 14px;
+	background: #7EE285;
+	padding-bottom: 1px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 1px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_mobile_offline {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 2px;
+	border-top: #fff 1px solid;
+	padding-left: 2px;
+	font-size: 14px;
+	background: #d32c47;
+	padding-bottom: 1px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 1px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_mobile_back {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 2px;
+	border-top: #fff 1px solid;
+	padding-left: 2px;
+	font-size: 14px;
+	background: #BAC2BD;
+	padding-bottom: 1px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 1px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.checkbox_st {
+	border: 1px solid #CCC;
+}
+
+.table_roll{
+	table-layout:fixed;
+}
+.rb_gg1 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #1486FC;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_gg2 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #1F7BDB;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_fwz1 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #7EE285;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_fwz2 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #54CF5D;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_xlzd1 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #d32c47;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_xlzd2 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #C71E3A;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_bt1 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #A1A8A1;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_bt2 {
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #868D86;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #000000;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_jzjk1 {
+	float:right;
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #8CC576;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #fff;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.rb_jzjk2 {
+	float:right;
+	border-right: #6a6a6a 1px solid;
+	padding-right: 5px;
+	border-top: #fff 1px solid;
+	padding-left: 5px;
+	font-size: 14px;
+	background: #7FAF6C;
+	padding-bottom: 3px;
+	border-left: #fff 1px solid;
+	cursor: pointer;
+	color: #fff;
+	padding-top: 3px;
+	border-bottom: #6a6a6a 1px solid;
+	height: 25px
+}
+
+.box {
+	text-align:center;
+	white-space:nowrap;
+	height: 25px;
+	/*width: 650px;clip: rect(0px, 181px, 18px, 0px);*/
+	overflow: hidden;
+}
+
+.box2 {
+	border: 1px solid #F4F4F4;
+	width: 180px;
+	height: 17px;
+	/*clip: rect(0px, 179px, 16px, 0px);*/
+	overflow: hidden;
+}
+
+select {
+	position: relative;
+	left: -2px;
+	top: 2px;
+	font-size: 12px;
+	width: 183px;
+	line-height: 14px;
+	border: 0px;
+	color: #232020;
+}
+
+/*定义菜单方框的样式1*/
+.skin0 {
+	position: absolute;
+	padding-top: 4px;
+	text-align: left;
+	width: 140px;
+	border: 2px solid black;
+	background-color: menu; /*菜单的背景颜色方案，这里选择了系统默认的菜单颜色*/
+	font-family: "宋体";
+	line-height: 20px;
+	cursor: default;
+	visibility: hidden; /*初始时，设置为不可见*/
+}
+
+/*定义菜单方框的样式2*/
+.skin1 {
+	padding-top: 4px;
+	cursor: default;
+	font: menutext;
+	position: absolute;
+	text-align: left;
+	font-family: "宋体";
+	font-size: 11pt;
+	width: 140px;
+	background-color: menu; /*菜单的背景颜色方案，这里选择了系统默认的菜单颜色*/
+	border: 1 solid buttonface;
+	visibility: hidden; /*初始时，设置为不可见*/
+	border: 2 outset buttonhighlight;
+}
+
+/*定义菜单条的显示样式*/
+.menuitems {
+	padding: 2px 1px 2px 10px;
+}
+
+.td_tianhe_gg {
+	height: 20px;
+	white-space: nowrap;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	font-size: 11px;
+	font-weight:bold;
+	padding: 6px 6px 6px 12px;
+	color: #1486FC;
+}
+
+.td_tianhe_fwz {
+	height: 20px;
+	white-space: nowrap;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	font-size: 11px;
+	font-weight:bold;
+	padding: 6px 6px 6px 12px;
+	color: #7EE285;
+}
+
+.td_tianhe_xlzd {
+	height: 20px;
+	white-space: nowrap;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	font-size: 11px;
+	font-weight:bold;
+	padding: 6px 6px 6px 12px;
+	color: #d32c47;
+}
+
+.td_tianhe_bt {
+	height: 20px;
+	white-space: nowrap;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	font-size: 11px;
+	font-weight:bold;
+	padding: 6px 6px 6px 12px;
+	color: #A1A8A1;
+}
+
+.td_ss {
+	height: 20px;
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	font-size: 12px;
+	padding: 6px 6px 6px 12px;
+	color: #4f6b72;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+
+.leftBtn{
+	background-color:#CAE8EA;
+	color:#4f6b72;
+	float:left;
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	border-width: 1px;
+}
+
+.centerBtn{
+	background-color:#CAE8EA;
+	color:#4f6b72;
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	border-width: 1px;
+}
+.rightBtn{
+	background-color:#CAE8EA;
+	color:#4f6b72;
+	float:right;
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	border-width: 1px;
+	margin-right: 3px;
+}

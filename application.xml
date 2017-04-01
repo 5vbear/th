@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<application>
+  <display-name>thmanagement</display-name>
+  <module>
+    <web>
+      <web-uri>thmanagement.war</web-uri>
+      <context-root>/th</context-root>
+    </web>
+  </module>
+</application>

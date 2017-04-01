@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- $Id: web.xml,v 1.29 2010/05/11 08:50:38 kobana Exp $ -->
+
+<web-app>
+
+	<servlet>
+		<servlet-name>log4j-init</servlet-name>
+		<servlet-class>th.servlet.Log4jInitServlet</servlet-class>
+		<init-param>
+			<param-name>log4j</param-name>
+			<param-value>@APP_CONF@/log4j.xml</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<filter>
+		<filter-name>EncodeFilter</filter-name>
+		<filter-class>filters.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>th.com.init.Initializer</listener-class>
+	</listener>
+	<listener>
+		<listener-class>th.ftp.servlet.FTPServerInitServlet</listener-class>
+	</listener>
+
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
+	<servlet>
+		<servlet-name>myTestServelet</servlet-name>
+		<servlet-class>th.servlet.myTestServelet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>myTestServelet</servlet-name>
+		<url-pattern>/myTestAPI</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>th.servlet.LoginServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/login.html</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>FtpSettingSevlet</servlet-name>
+		<servlet-class>th.ftp.servlet.FtpSettingSevlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FtpSettingSevlet</servlet-name>
+		<url-pattern>/ftpsetting.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MobileLoginServlet</servlet-name>
+		<servlet-class>th.servlet.MobileLoginServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MobileLoginServlet</servlet-name>
+		<url-pattern>/mobileLogin.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MobileServlet</servlet-name>
+		<servlet-class>th.servlet.MobileServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MobileServlet</servlet-name>
+		<url-pattern>/mobile.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PreAuditServlet</servlet-name>
+		<servlet-class>th.servlet.PreAuditServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PreAuditServlet</servlet-name>
+		<url-pattern>/preAudit</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MobileAppStoreServlet</servlet-name>
+		<servlet-class>th.servlet.MobileAppStoreServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MobileAppStoreServlet</servlet-name>
+		<url-pattern>/MobileAppStore</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AppStoreUploadServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.AppStoreUploadServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AppStoreUploadServlet</servlet-name>
+		<url-pattern>/AppStoreUpload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PS11</servlet-name>
+		<servlet-class>th.servlet.PS11Servlet</servlet-class>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PS11</servlet-name>
+		<url-pattern>/PS11.html</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<!--  mdm control start-->
+	<servlet>
+		<servlet-name>MDMControlServlet</servlet-name>
+		<servlet-class>th.ios.mdm.control.MDMControlServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MDMControlServlet</servlet-name>
+		<url-pattern>/mdmcontrol</url-pattern>
+	</servlet-mapping>
+	<!--  mdm control end-->
+	
+<!--  mdm server start-->
+	<servlet>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>th.ios.mdm.TestServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>/mdmtest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MobileConfigServlet</servlet-name>
+		<servlet-class>th.ios.mdm.MobileConfigServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MobileConfigServlet</servlet-name>
+		<url-pattern>/mcdownload</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MDMServlet</servlet-name>
+		<servlet-class>th.ios.mdm.MDMServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MDMServlet</servlet-name>
+		<url-pattern>/mdmserver</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CheckInUrlServlet</servlet-name>
+		<servlet-class>th.ios.mdm.CheckInUrlServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CheckInUrlServlet</servlet-name>
+		<url-pattern>/checkin/*</url-pattern>
+	</servlet-mapping>
+<!--  mdm server end-->
+	<servlet>
+		<servlet-name>ReceiverDopServlet</servlet-name>
+		<servlet-class>th.servlet.dbTest</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ReceiverDopServlet</servlet-name>
+		<url-pattern>/ReceiverDOPAPI</url-pattern>
+	</servlet-mapping>
+
+	<!-- Interactive -->
+<!-- 
+	<servlet>
+		<servlet-name>InteractiveServlet</servlet-name>
+		<servlet-class>interactiveAPI.InteractiveServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InteractiveServlet</servlet-name>
+		<url-pattern>/InteractiveAPI</url-pattern>
+	</servlet-mapping>
+	
+-->
+	<!-- weixin 20130814 start -->
+	<servlet>
+		<servlet-name>MachineAccessHistoryUploadServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.MachineAccessHistoryUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MachineAccessHistoryUploadServlet</servlet-name>
+		<url-pattern>/MachineAccessHistoryUploadAPI</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MachineEnvUploadServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.MachineEnvUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MachineEnvUploadServlet</servlet-name>
+		<url-pattern>/MachineEnvUploadAPI</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MachineUseUploadServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.MachineUseUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MachineUseUploadServlet</servlet-name>
+		<url-pattern>/MachineUseUploadAPI</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MonitorCommonUploadServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.MonitorCommonUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MonitorCommonUploadServlet</servlet-name>
+		<url-pattern>/MonitorCommonUploadAPI</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PositionUploadServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.PositionUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PositionUploadServlet</servlet-name>
+		<url-pattern>/PositionUploadAPI</url-pattern>
+	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>ServerTimeGetServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.ServerTimeGetServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServerTimeGetServlet</servlet-name>
+		<url-pattern>/ServerTimeGetAPI</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UserAuthenticateServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.UserAuthenticateServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserAuthenticateServlet</servlet-name>
+		<url-pattern>/UserAuthenticateAPI</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UKeyAccessServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.UKeyAccessServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UKeyAccessServlet</servlet-name>
+		<url-pattern>/UKeyAccessAPI</url-pattern>
+	</servlet-mapping>
+	
+	<!-- UpdateManagement beg -->
+	<servlet>
+		<servlet-name>UpdateManagementServlet</servlet-name>
+		<servlet-class>th.servlet.updateManagement.UpdateManagementServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateManagementServlet</servlet-name>
+		<url-pattern>/jsp/updateManagement/UpdateManagement.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ChoosePackagesServlet</servlet-name>
+		<servlet-class>th.servlet.updateManagement.ChoosePackagesServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChoosePackagesServlet</servlet-name>
+		<url-pattern>/jsp/updateManagement/ChoosePackages.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UpdatePackage</servlet-name>
+		<servlet-class>th.servlet.updateManagement.UpdatePackageServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdatePackage</servlet-name>
+		<url-pattern>/jsp/updateManagement/UpdatePackage.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UpdateHistorySearchServlet</servlet-name>
+		<servlet-class>th.servlet.updateManagement.UpdateHistorySearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateHistorySearchServlet</servlet-name>
+		<url-pattern>/jsp/updateManagement/UpdateHistorySearch.html</url-pattern>
+	</servlet-mapping>
+	<!-- UpdateManagement end -->
+	<!-- SysUpdateManagement beg -->
+	<servlet>
+		<servlet-name>SysUpdateManagementServlet</servlet-name>
+		<servlet-class>th.servlet.sysUpdateManagement.SysUpdateManagementServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SysUpdateManagementServlet</servlet-name>
+		<url-pattern>/jsp/sysUpdateManagement/SysUpdateManagement.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SysChoosePackagesServlet</servlet-name>
+		<servlet-class>th.servlet.sysUpdateManagement.SysChoosePackagesServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SysChoosePackagesServlet</servlet-name>
+		<url-pattern>/jsp/sysUpdateManagement/SysChoosePackages.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SysUpdatePackage</servlet-name>
+		<servlet-class>th.servlet.sysUpdateManagement.SysUpdatePackageServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SysUpdatePackage</servlet-name>
+		<url-pattern>/jsp/sysUpdateManagement/SysUpdatePackage.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SysUpdateHistorySearchServlet</servlet-name>
+		<servlet-class>th.servlet.sysUpdateManagement.SysUpdateHistorySearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SysUpdateHistorySearchServlet</servlet-name>
+		<url-pattern>/jsp/sysUpdateManagement/SysUpdateHistorySearch.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IosSysUpdateServlet</servlet-name>
+		<servlet-class>th.servlet.iosManagement.IosSysUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IosSysUpdateServlet</servlet-name>
+		<url-pattern>/jsp/iosManagement/IosSysUpdate.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IosManagementServlet</servlet-name>
+		<servlet-class>th.servlet.iosManagement.IosManagementServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IosManagementServlet</servlet-name>
+		<url-pattern>/jsp/iosManagement/IosManagementServlet.html</url-pattern>
+	</servlet-mapping>
+	<!-- UpdateManagement end -->
+
+
+
+	<!-- weixin 20130814 end -->
+
+	<servlet>
+		<servlet-name>MonitorServlet</servlet-name>
+		<servlet-class>th.servlet.MonitorServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MonitorServlet</servlet-name>
+		<url-pattern>/MonitorServlet.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MonitorRightSettingServlet</servlet-name>
+		<servlet-class>th.servlet.MonitorRightSettingServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MonitorRightSettingServlet</servlet-name>
+		<url-pattern>/MonitorRightSettingServlet.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DisplayChart</servlet-name>
+		<servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+		<servlet-name>DisplayChart</servlet-name>
+		<url-pattern>/servlet/DisplayChart</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+		<servlet-name>MonitorAlertSetServlet</servlet-name>
+		<servlet-class>th.servlet.MonitorAlertSetServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MonitorAlertSetServlet</servlet-name>
+		<url-pattern>/monitor/setting.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- roleDeal -->
+	<servlet>
+		<servlet-name>RoleDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.roleMang.RoleDealServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RoleDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/roleMang/roleDeal.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- logout -->
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<servlet-class>th.servlet.LogoutServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/logout.html</url-pattern>
+	</servlet-mapping>
+	<!-- roleList -->
+	<servlet>
+		<servlet-name>RoleListServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.roleMang.RoleListServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RoleListServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/roleMang/roleList.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- organizeDeal -->
+	<servlet>
+		<servlet-name>OrgDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.orgMang.OrgDealServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>OrgDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/orgMang/orgDeal.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- departmentSearch -->
+	<servlet>
+		<servlet-name>DptSearchServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.dptMang.DptSearchServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DptSearchServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/dptMang/dptSearch.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- departmentDeal -->
+	<servlet>
+		<servlet-name>DptDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.dptMang.DptDealServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DptDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/dptMang/dptDeal.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- departmentAuth -->
+	<servlet>
+		<servlet-name>DptAuthServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.dptMang.DptAuthServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DptAuthServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/dptMang/dptAuth.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- UserSearch -->
+	<servlet>
+		<servlet-name>UserSearchServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.userMang.UserSearchServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UserSearchServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/userMang/userSearch.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- User FACTORY_ID and SN_NUM -->
+	<servlet>
+		<servlet-name>FactorySnNumSearchServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.internetBanking.FactorySnNumSearchServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>FactorySnNumSearchServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/internetBankingMang/factorySnNumSearch.html</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- Internet Banking Equipment Management -->
+	<servlet>
+		<servlet-name>InternetBankingSearchServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.internetBanking.InternetBankingSearchServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>InternetBankingSearchServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/internetBankingMang/internetBankingSearch.html</url-pattern>
+	</servlet-mapping>
+	<!-- UserDeal -->
+	<servlet>
+		<servlet-name>UserDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.userMang.UserDealServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UserDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/userMang/userDeal.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- SysCommonDeal -->
+	<servlet>
+		<servlet-name>AjaxPageCheckServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.com.AjaxPageCheckServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AjaxPageCheckServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/com/ajaxCheck.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- MailServConf -->
+	<servlet>
+		<servlet-name>MailServConfServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.mailConf.MailServConfServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MailServConfServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/mailConf/mailServConf.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- SysServConf -->
+	<servlet>
+		<servlet-name>SysServConfServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.sysConf.SysServConfServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SysServConfServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/sysConf/sysServConf.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- FileManagement -->
+	<servlet>
+		<servlet-name>UpFilesDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.fileMang.UpFilesDealServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UpFilesDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/fileMang/upFileDeal.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- StrategyList -->
+	<servlet>
+		<servlet-name>StrategyListServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.strategyMang.StrategyListServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>StrategyListServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/strategyMang/strategyList.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- StrategyDeal -->
+	<servlet>
+		<servlet-name>StrategyDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.strategyMang.StrategyDealServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>StrategyDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/strategyMang/strategyDeal.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- TaskList -->
+	<servlet>
+		<servlet-name>TaskListServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.taskMang.TaskListServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>TaskListServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/taskMang/taskList.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- TaskDeal -->
+	<servlet>
+		<servlet-name>TaskDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.taskMang.TaskDealServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>TaskDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/taskMang/taskDeal.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- EBankDeviceList -->
+	<servlet>
+		<servlet-name>EBankDeviceListServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.devMang.EBankDeviceListServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>EBankDeviceListServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/devMang/ebDeviceList.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- EBankDeviceDeal -->
+	<servlet>
+		<servlet-name>EBankDeviceDealServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.devMang.EBankDeviceDealServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>EBankDeviceDealServlet</servlet-name>
+		<url-pattern>/jsp/sysMang/devMang/ebDeviceDeal.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- add by zhangzhinan start -->
+	<!-- é¢é -->
+	<servlet>
+		<servlet-name>ChannelServlet</servlet-name>
+		<servlet-class>th.servlet.ChannelServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChannelServlet</servlet-name>
+		<url-pattern>/jsp/channel/addChannel.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChannelServlet</servlet-name>
+		<url-pattern>/jsp/channel/addQuickEntry.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChannelServlet</servlet-name>
+		<url-pattern>/jsp/channel/searchChannel.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChannelServlet</servlet-name>
+		<url-pattern>/jsp/channel/editChannel.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChannelServlet</servlet-name>
+		<url-pattern>/jsp/channel/deleteChannel.html</url-pattern>
+	</servlet-mapping>
+	<!-- æ¥è¡¨  -->
+	<servlet>
+		<servlet-name>ReportClientServlet</servlet-name>
+		<servlet-class>th.servlet.ReportClientServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReportClientServlet</servlet-name>
+		<url-pattern>/jsp/client/clientInfo.html</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ReportClientServlet</servlet-name>
+		<url-pattern>/jsp/client/clientUseInfo.html</url-pattern>
+	</servlet-mapping>
+	<!-- add by zhangzhinan end -->
+	<servlet>
+		<servlet-name>AdvertServlet</servlet-name>
+		<servlet-class>th.servlet.AdvertServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdvertServlet</servlet-name>
+		<url-pattern>/AdvertServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>th.servlet.UploadServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- report start -->
+	<servlet>
+		<servlet-name>DeviceRunningServlet</servlet-name>
+		<servlet-class>th.servlet.DeviceRunningServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeviceRunningServlet</servlet-name>
+		<url-pattern>/DeviceRunningServlet.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MultiRunningStatisticsServlet</servlet-name>
+		<servlet-class>th.servlet.MultiRunningStatisticsServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MultiRunningStatisticsServlet</servlet-name>
+		<url-pattern>/MultiRunningStatisticsServlet.html</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ReportServlet</servlet-name>
+		<servlet-class>th.servlet.ReportServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ReportServlet</servlet-name>
+		<url-pattern>/Report</url-pattern>
+	</servlet-mapping>
+	<!-- report end -->
+
+	<!-- add by sunshaojun start -->
+	<servlet>
+		<servlet-name>MachineServlet</servlet-name>
+		<servlet-class>th.servlet.MachineServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MachineServlet</servlet-name>
+		<url-pattern>/machineServlet</url-pattern>
+	</servlet-mapping>
+	<!-- add by sunshaojun end -->
+	
+	<!-- add logList start -->
+	<servlet>
+		<servlet-name>LogListServlet</servlet-name>
+		<servlet-class>th.servlet.LogListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogListServlet</servlet-name>
+		<url-pattern>/LogListServlet.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- add logList end -->
+
+	<servlet>
+		<servlet-name>MessageServlet</servlet-name>
+		<servlet-class>th.servlet.MessageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MessageServlet</servlet-name>
+		<url-pattern>/Message.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdviceServlet</servlet-name>
+		<servlet-class>th.servlet.AdviceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdviceServlet</servlet-name>
+		<url-pattern>/Advice.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- add by shanyg s -->
+
+	<servlet>
+		<servlet-name>AvailablePageServlet</servlet-name>
+		<servlet-class>th.servlet.AvailablePageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AvailablePageServlet</servlet-name>
+		<url-pattern>/jsp/Available/availablePageList.html</url-pattern>
+	</servlet-mapping>
+	<!-- add by shanyg e -->
+	
+	<servlet>
+		<servlet-name>SyncMgtServlet</servlet-name>
+		<servlet-class>th.servlet.SyncMgtServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SyncMgtServlet</servlet-name>
+		<url-pattern>/jsp/SyncManagement.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SubtitlesListGetServlet</servlet-name>
+		<servlet-class>th.servlet.interactiveAPI.SubtitlesListGetServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SubtitlesListGetServlet</servlet-name>
+		<url-pattern>/SubtitlesListGetServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AppManagement</servlet-name>
+		<servlet-class>th.servlet.appStore.AppManagementServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AppManagement</servlet-name>
+		<url-pattern>/jsp/appStore/AppManagement.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>LotteryMangServlet</servlet-name>
+		<servlet-class>th.servlet.sysMang.lotteryMang.LotteryDealServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryMangServlet</servlet-name>
+		<url-pattern>/lottery.html</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryServlet</servlet-name>
+		<servlet-class>th.servlet.LotteryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryServlet</servlet-name>
+		<url-pattern>/lottery_user.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>LotteryHistoryServlet</servlet-name>
+		<servlet-class>th.servlet.LotteryHistoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryHistoryServlet</servlet-name>
+		<url-pattern>/lottery_history.html</url-pattern>
+	</servlet-mapping>
+	
+		
+		<servlet>
+		<servlet-name>AjaxLotteryServlet</servlet-name>
+		<servlet-class>th.servlet.AjaxLotteryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AjaxLotteryServlet</servlet-name>
+		<url-pattern>/ajaxlottery_user.html</url-pattern>
+	</servlet-mapping>
+	
+
+	<!-- AppStore beg -->
+	<servlet>
+		<servlet-name>AppStoreManagementServlet</servlet-name>
+		<servlet-class>th.servlet.appStore.UpdateAppStoreManagementServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AppStoreManagementServlet</servlet-name>
+		<url-pattern>/jsp/appStore/UpdateAppStoreManagement.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ChooseAppStoreServlet</servlet-name>
+		<servlet-class>th.servlet.appStore.ChooseAppStoreServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChooseAppStoreServlet</servlet-name>
+		<url-pattern>/jsp/appStore/ChooseAppStore.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UpdateAppStore</servlet-name>
+		<servlet-class>th.servlet.appStore.UpdateAppStoreServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateAppStore</servlet-name>
+		<url-pattern>/jsp/appStore/UpdateAppStore.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- AppStore end -->
+
+
+
+
+	<servlet>
+		<servlet-name>AdviceUpServlet</servlet-name>
+		<servlet-class>th.servlet.AdviceUpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdviceUpServlet</servlet-name>
+		<url-pattern>/au.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdviceSaveServlet</servlet-name>
+		<servlet-class>th.servlet.AdviceSaveServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdviceSaveServlet</servlet-name>
+		<url-pattern>/as.html</url-pattern>
+	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>BackupServlet</servlet-name>
+		<servlet-class>th.servlet.backup.BackupServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BackupServlet</servlet-name>
+		<url-pattern>/backup.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- add by shanyg s -->
+
+	<servlet>
+		<servlet-name>MachineConfigServlet</servlet-name>
+		<servlet-class>th.servlet.MachineConfigServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MachineConfigServlet</servlet-name>
+		<url-pattern>/jsp/machineConfig/machineConfigSeach.html</url-pattern>
+	</servlet-mapping>
+	
+	<!-- add by shanyg e -->
+	<!-- add by shanyg s -->
+
+	<servlet>
+		<servlet-name>CancelServlet</servlet-name>
+		<servlet-class>th.servlet.CancelServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelServlet</servlet-name>
+		<url-pattern>/cancelSend.html</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RemoteControlServlet</servlet-name>
+		<servlet-class>th.servlet.RemoteControlServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RemoteControlServlet</servlet-name>
+		<url-pattern>/remote.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DeleteAppControlServlet</servlet-name>
+		<servlet-class>th.servlet.DeleteAppControlServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteAppControlServlet</servlet-name>
+		<url-pattern>/deleteApp.html</url-pattern>
+	</servlet-mapping>
+	<!-- add by shanyg e -->
+	
+	<env-entry>
+		<env-entry-name>property_file_name</env-entry-name>
+		<env-entry-value>@APP_ROOT@/@APP_NAME@/@APP_DIR@/@APP_CONF@/Define.properties</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+	<env-entry>
+		<env-entry-name>config</env-entry-name>
+		<env-entry-value>@APP_ROOT@/@APP_NAME@/@APP_DIR@/@APP_CONF@/</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+
+</web-app>
